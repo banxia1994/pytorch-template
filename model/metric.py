@@ -1,6 +1,6 @@
 import torch
 
-
+## top1 
 def my_metric(output, target):
     with torch.no_grad():
         pred = torch.argmax(output, dim=1)
