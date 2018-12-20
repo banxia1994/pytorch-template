@@ -9,7 +9,7 @@ ImageFile.LOAD_TRUNCATED_IAMGES = True
 
 def PIL_loader(path):
     try:
-        img = Image.open(path).convert('RGB')
+        img = Image.open(path.encode('utf-8')).convert('RGB')
         # print(path)
     except IOError:
         print('Cannot load image ' + path)
@@ -89,9 +89,9 @@ class ImageList(data.Dataset):
         ## for testing
         if self.test_flag:
             img_name = imgPath.split('/')[-1]
-            return img, target, img_name
+            return img, target#, img_name
         else:
-            return img, target, 'None'
+            return img, target#, 'None'
 
     def __len__(self):
         return len(self.imgList)

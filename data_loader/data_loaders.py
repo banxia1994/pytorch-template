@@ -21,8 +21,8 @@ class ImagelistDataLoader(BaseDataLoader):
     '''
     def __init__(self, data_dir, batch_size, shuffle, validation_split, num_workers, training=True):
         transform = transforms.Compose([
-            #transforms.Resize(args.resize),
-            #transforms.RandomCrop(args.crop_size),
+            transforms.Resize(256),
+            transforms.RandomCrop(256),
             transforms.ColorJitter(brightness=0.15, contrast=0.4, saturation=0.4, hue=0.4),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),  # range [0, 255] -> [0.0,1.0]

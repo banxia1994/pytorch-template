@@ -114,6 +114,7 @@ MobileNetV1(
   (fc1): Linear(in_features=1024, out_features=1000, bias=True)
 )
 Trainable parameters: 4231976
+Train Epoch: 1 [0/150567 (0%)] Loss: 0.030399
 Traceback (most recent call last):
   File "train.py", line 70, in <module>
     main(config, args.resume)
@@ -123,18 +124,14 @@ Traceback (most recent call last):
     result = self._train_epoch(epoch)
   File "/cephfs/person/jawnrwen/pytorch-template/trainer/trainer.py", line 51, in _train_epoch
     for batch_idx, (data, target) in enumerate(self.data_loader):
-  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 336, in __next__
-    return self._process_next_batch(batch)
-  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 357, in _process_next_batch
-    raise batch.exc_type(batch.exc_msg)
-RuntimeError: Traceback (most recent call last):
-  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 106, in _worker_loop
-    samples = collate_fn([dataset[i] for i in batch_indices])
-  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 187, in default_collate
-    return [default_collate(samples) for samples in transposed]
-  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 187, in <listcomp>
-    return [default_collate(samples) for samples in transposed]
-  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 164, in default_collate
-    return torch.stack(batch, 0, out=out)
-RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 652 and 262 in dimension 2 at /pytorch/aten/src/TH/generic/THTensorMath.cpp:3616
-
+  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 314, in __next__
+    batch = self.collate_fn([self.dataset[i] for i in indices])
+  File "/usr/local/lib/python3.5/dist-packages/torch/utils/data/dataloader.py", line 314, in <listcomp>
+    batch = self.collate_fn([self.dataset[i] for i in indices])
+  File "/cephfs/person/jawnrwen/pytorch-template/datasets/dataset.py", line 85, in __getitem__
+    img = self.loader(imgPath)
+  File "/cephfs/person/jawnrwen/pytorch-template/datasets/dataset.py", line 12, in PIL_loader
+    img = Image.open(path).convert('RGB')
+  File "/usr/local/lib/python3.5/dist-packages/PIL/Image.py", line 2580, in open
+    fp = builtins.open(filename, "rb")
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 53-59: ordinal not in range(128)
