@@ -19,7 +19,7 @@ class ImagelistDataLoader(BaseDataLoader):
     '''
     Image List data loading demo
     '''
-    def __init__(self, root, file_dir, batch_size, shuffle, validation_split, num_workers, training=True):
+    def __init__(self, data_dir, batch_size, shuffle, validation_split, num_workers, training=True):
         transform = transforms.Compose([
             #transforms.Resize(args.resize),
             #transforms.RandomCrop(args.crop_size),
@@ -28,7 +28,7 @@ class ImagelistDataLoader(BaseDataLoader):
             transforms.ToTensor(),  # range [0, 255] -> [0.0,1.0]
             transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))  # range [0.0, 1.0] -> [-1.0,1.0]
         ])
-        self.root = root
-        self.file_dir = file_dir
-        self.dataset = ImageList(self.root,self.file_dir,transform=transform)
+        #self.root = root
+        self.file_dir = data_dir
+        self.dataset = ImageList(self.file_dir,transform=transform)
         super(ImagelistDataLoader, self).__init__(self.dataset, batch_size, shuffle, validation_split, num_workers)

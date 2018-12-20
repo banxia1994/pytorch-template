@@ -9,7 +9,7 @@
     "data_loader": {
         "type": "ImagelistDataLoader",
         "args":{
-            "data_dir": "data/",
+            "data_dir": "/cephfs/person/jawnrwen/content_class/train_map.txt",
             "batch_size": 128,
             "shuffle": true,
             "validation_split": 0.1,

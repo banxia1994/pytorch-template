@@ -3,9 +3,9 @@ import torch.utils.data as data
 from PIL import Image, ImageFile
 import os
 import pdb
-
+import codecs
 ImageFile.LOAD_TRUNCATED_IAMGES = True
-
+#codecs.open(filename, 'rb', 'utf-8','ignore')
 
 def PIL_loader(path):
     try:
@@ -20,7 +20,7 @@ def PIL_loader(path):
 ## for training #
 def default_reader(fileList):
     imgList = []
-    with open(fileList, 'r') as file:
+    with codecs.open(fileList, 'rb','utf-8','ignore') as file:
         for line in file.readlines():
             imgPath, label = line.strip().split(' ')
             imgList.append((imgPath, int(label)))
@@ -72,8 +72,8 @@ class ImageList(data.Dataset):
             and returns a transformed version. E.g, ``transforms.RandomCrop``
     '''
 
-    def __init__(self, root, fileList, transform=None, list_reader=default_reader, loader=PIL_loader, test_flag=False):
-        self.root = root
+    def __init__(self, fileList, transform=None, list_reader=default_reader, loader=PIL_loader, test_flag=False):
+        #self.root = root
         self.imgList = list_reader(fileList)
         self.transform = transform
         self.loader = loader
@@ -82,13 +82,13 @@ class ImageList(data.Dataset):
     def __getitem__(self, index):
 
         imgPath, target = self.imgList[index]
-        img = self.loader(os.path.join(self.root, imgPath))
+        img = self.loader(imgPath)
 
         if self.transform is not None:
             img = self.transform(img)
         ## for testing
         if self.test_flag:
-            img_name = os.path.join(self.root, imgPath).split('/')[-1]
+            img_name = imgPath.split('/')[-1]
             return img, target, img_name
         else:
             return img, target, 'None'
