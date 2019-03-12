@@ -8,6 +8,7 @@ import model.metric as module_metric
 import model.model as module_arch
 from trainer import Trainer
 from utils import Logger
+#import pdb
 
 
 def get_instance(module, name, config, *args):
@@ -23,7 +24,7 @@ def main(config, resume):
     # build model architecture
     model = get_instance(module_arch, 'arch', config)
     print(model)
-    
+    #pdb.set_trace()
     # get function handles of loss and metrics
     loss = getattr(module_loss, config['loss'])
     metrics = [getattr(module_metric, met) for met in config['metrics']]

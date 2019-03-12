@@ -26,7 +26,8 @@ class MobileNetV1(BaseModel):
     def __init__(self, get_feature=False, num_classes=1000):
         super(MobileNetV1, self).__init__()
         self.get_feature = get_feature
-
+        ##
+        print('num_class:{}'.format(num_classes))
         def conv_bn(inp, oup, stride):
             return nn.Sequential(
                 nn.Conv2d(inp, oup, 3, stride, 1, bias=False),

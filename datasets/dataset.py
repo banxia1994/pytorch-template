@@ -22,7 +22,10 @@ def default_reader(fileList):
     imgList = []
     with codecs.open(fileList, 'rb','utf-8','ignore') as file:
         for line in file.readlines():
-            imgPath, label = line.strip().split(' ')
+            #print(line)
+            if len(line.strip().split()) != 2:
+                continue
+            imgPath, label = line.strip().split()
             imgList.append((imgPath, int(label)))
     return imgList
 
